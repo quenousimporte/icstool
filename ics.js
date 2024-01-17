@@ -64,16 +64,29 @@ function displayevents(events, func, title)
 	.filter(func)
 	.sort( (a,b) => a.DTSTART - b.DTSTART)
 	.forEach(e => {
-		var formatteddate = e.DTSTART.toLocaleString('fr-FR', { timeZone: 'Europe/Paris', dateStyle: "full" });
+		var formatteddate = e.DTSTART.toLocaleString('fr-FR', { timeZone: 'Europe/Paris', dateStyle: "full", timeStyle: "short" });
 		var splitdate = formatteddate.split(" ");
 		var year = splitdate[3];
 		var month = splitdate[2];
 		group[year] = group[year] || {};
 		group[year][month] = group[year][month] || [];
-		group[year][month].push(splitdate[0] + " " + splitdate[1] + ": " + e.SUMMARY);
+		group[year][month].push(formatteddate + ": " + e.SUMMARY);
 	});
 	console.log(title);
-	console.log(JSON.stringify(group, null, "    "));;
+	for (var year in group)
+	{
+		console.log(year);
+		for (var month in group[year])
+		{
+			console.log("  " + month);
+			group[year][month].forEach(e =>
+			{
+				console.log("    " + e);
+			});
+		}
+	}
+	console.log("");
+
 }
 function main()
 {
