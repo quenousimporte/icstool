@@ -1,0 +1,7 @@
+{
+	"host": "caldav.server.example",
+	"username": "username",
+	"passw": "pizz@!123",
+	"path": "/my/calendar/path",
+	"recentdays": 10
+}
