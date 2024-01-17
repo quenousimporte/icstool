@@ -57,31 +57,33 @@ function dt(s)
 		+ s.substr(9,2) + ":" + s.substr(11,2) + ":" + s.substr(13,2));
 }
 
-function formatevent(e)
+function displayevents(events, func, title)
 {
-	return e.DTSTART.toLocaleString('fr-FR', { timeZone: 'Europe/Paris' }) + ": " + e.SUMMARY;
+	var group = {};
+	events
+	.filter(func)
+	.sort( (a,b) => a.DTSTART - b.DTSTART)
+	.forEach(e => {
+		var formatteddate = e.DTSTART.toLocaleString('fr-FR', { timeZone: 'Europe/Paris', dateStyle: "full" });
+		var splitdate = formatteddate.split(" ");
+		var year = splitdate[3];
+		var month = splitdate[2];
+		group[year] = group[year] || {};
+		group[year][month] = group[year][month] || [];
+		group[year][month].push(splitdate[0] + " " + splitdate[1] + ": " + e.SUMMARY);
+	});
+	console.log(title);
+	console.log(JSON.stringify(group, null, "    "));;
 }
-
 function main()
 {
 	var o = ics2json(ics);
 
+	displayevents(o.VEVENTS, e => e.DTSTART >= (new Date), "A venir");
+
 	var lastweek = new Date();
 	lastweek.setDate(lastweek.getDate() - settings.recentdays);
-
-	console.log("A venir");
-	o.VEVENTS
-	.filter(e => e.DTSTART >= (new Date))
-	.sort( (a,b) => a.DTSTART - b.DTSTART)
-	.map(formatevent)
-	.forEach(e => console.log(e));
-
-	console.log("\nChangements récents (" + settings.recentdays + " jours)");
-	o.VEVENTS
-	.filter(e => e.DTSTART >= (new Date) && e.DTSTAMP >= lastweek)
-	.sort( (a,b) => a.DTSTART - b.DTSTART)
-	.map(formatevent)
-	.forEach(e => console.log(e));
+	displayevents(o.VEVENTS, e => e.DTSTART >= (new Date) && e.DTSTAMP >= lastweek, "Changements récents");
 }
 
 fs.readFile('settings.json', 'utf8', (err, data) =>
