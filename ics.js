@@ -57,7 +57,7 @@ function dt(s)
 		+ s.substr(9,2) + ":" + s.substr(11,2) + ":" + s.substr(13,2));
 }
 
-function displayevents(events, func, title)
+function displayevents(events, func, title, created)
 {
 	var group = {};
 	events
@@ -70,7 +70,7 @@ function displayevents(events, func, title)
 		var month = splitdate[2];
 		group[year] = group[year] || {};
 		group[year][month] = group[year][month] || [];
-		group[year][month].push(formatteddate + ": " + e.SUMMARY);
+		group[year][month].push(formatteddate + ": " + e.SUMMARY + (created ? ` (modifié le ${e.DTSTAMP.toLocaleString('fr-FR', { timeZone: 'Europe/Paris', dateStyle: "full" })})` : ""));
 	});
 	console.log(title);
 	for (var year in group)
@@ -96,7 +96,7 @@ function main()
 
 	var lastweek = new Date();
 	lastweek.setDate(lastweek.getDate() - settings.recentdays);
-	displayevents(o.VEVENTS, e => e.DTSTART >= (new Date) && e.DTSTAMP >= lastweek, "Changements récents");
+	displayevents(o.VEVENTS, e => e.DTSTART >= (new Date) && e.DTSTAMP >= lastweek, "Changements récents", true);
 }
 
 fs.readFile('settings.json', 'utf8', (err, data) =>
