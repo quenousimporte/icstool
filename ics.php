@@ -72,10 +72,12 @@ function ics2json(input)
 
 function dt(s)
 {
-	return new Date(
-		s.substr(0,4) + "-" + s.substr(4,2) + "-" + s.substr(6,2)
-		+ "T"
-		+ s.substr(9,2) + ":" + s.substr(11,2) + ":" + s.substr(13,2));
+	var formatted = s.substr(0,4) + "-" + s.substr(4,2) + "-" + s.substr(6,2);
+	if (s.length > 8)
+	{
+		formatted += "T" + s.substr(9,2) + ":" + s.substr(11,2) + ":" + s.substr(13,2);
+	}
+	return new Date(formatted);
 }
 
 function formatdate(d)
