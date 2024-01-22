@@ -23,7 +23,11 @@
 ?>
 
 <html>
+	<header>
+		<title>Evénements à venir</title>
+	</header>
 	<body style="font-family: helvetica;">
+		<div id="content"></div>
 		<script type="text/javascript">
 function ics2json(input)
 {
@@ -130,7 +134,7 @@ function showresult()
 			html += line;
 		});
 
-		document.body.innerHTML = html;
+		content.innerHTML = html;
 	}
 }
 
