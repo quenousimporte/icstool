@@ -101,8 +101,6 @@ function showresult()
 
 		var lastweek = new Date();
 		lastweek.setDate(lastweek.getDate() - recent);
-
-		var html = "";
 		var group = {};
 
 		o.VEVENTS
