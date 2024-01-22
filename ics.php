@@ -23,7 +23,7 @@
 ?>
 
 <html>
-	<body>
+	<body style="font-family: helvetica;">
 		<script type="text/javascript">
 function ics2json(input)
 {
