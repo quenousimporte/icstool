@@ -26,7 +26,7 @@
 	<header>
 		<title>Evénements à venir</title>
 	</header>
-	<body style="font-family: helvetica;">
+	<body style="font-family: helvetica; line-height: 24px; font-size: 16px;">
 		<div id="content"></div>
 		<script type="text/javascript">
 function ics2json(input)
