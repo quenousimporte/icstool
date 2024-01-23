@@ -102,6 +102,13 @@ function showresult()
 
 		var html = "<h1>Evénements à venir</h1>";
 		html += "<div>En gras: modifié les " + recent + " derniers jours</div>";
+
+		var weblink = params.get("weblink");
+		if (weblink)
+		{
+			html += `<div><a target="_blank" href="${weblink}">Lien vers calendrier web</a></div>`;
+		}
+
 		var o = ics2json(xhr.responseText);
 
 		var lastmodified = new Date();
