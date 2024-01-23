@@ -94,7 +94,11 @@ function showresult()
 	if (xhr.status == 200)
 	{
 		var params = new URLSearchParams(window.location.search);
-		var recent = parseInt(params.get("recent")) || 7;
+		var recent = parseInt(params.get("recent"));
+		if (isNaN(recent))
+		{
+			recent = 7;
+		}
 		var html = "<h1>Evénements à venir</h1>";
 		html += "<p>En gras: modifié les " + recent + " derniers jours</p>";
 		var o = ics2json(xhr.responseText);
