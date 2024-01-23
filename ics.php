@@ -101,7 +101,7 @@ function showresult()
 		}
 
 		var html = "<h1>Evénements à venir</h1>";
-		html += "<p>En gras: modifié les " + recent + " derniers jours</p>";
+		html += "<div>En gras: modifié les " + recent + " derniers jours</div>";
 		var o = ics2json(xhr.responseText);
 
 		var lastmodified = new Date();
