@@ -99,12 +99,13 @@ function showresult()
 		{
 			recent = 7;
 		}
+
 		var html = "<h1>Evénements à venir</h1>";
 		html += "<p>En gras: modifié les " + recent + " derniers jours</p>";
 		var o = ics2json(xhr.responseText);
 
-		var lastweek = new Date();
-		lastweek.setDate(lastweek.getDate() - recent);
+		var lastmodified = new Date();
+		lastmodified.setDate(lastmodified.getDate() - recent);
 		var group = {};
 
 		o.VEVENTS
@@ -129,7 +130,7 @@ function showresult()
 			}
 
 			var line = `<li title="modifié le ${formatdate(e.DTSTAMP)}"> ${formatteddate}: ${e.SUMMARY}`;
-			if (e.DTSTAMP >= lastweek)
+			if (e.DTSTAMP >= lastmodified)
 			{
 				line = `<b>${line}</b>`;
 			}
