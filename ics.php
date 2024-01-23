@@ -27,7 +27,7 @@
 		<title>Evénements à venir</title>
 	</header>
 	<body style="font-family: helvetica; line-height: 24px; font-size: 16px;">
-		<div id="content"></div>
+		<div id="content">Récupération du calendrier...</div>
 		<script type="text/javascript">
 function ics2json(input)
 {
@@ -101,7 +101,8 @@ function showresult()
 		}
 
 		var html = "<h1>Evénements à venir</h1>";
-		html += "<div>En gras: modifié les " + recent + " derniers jours</div>";
+		html += `<h3>${formatdate(new Date)}</h3>`;
+		html += `<div>En gras: modifié les ${recent} derniers jours</div>`;
 
 		var weblink = params.get("weblink");
 		if (weblink)
